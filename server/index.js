@@ -4,19 +4,22 @@ import cors from 'cors'
 import express from 'express'
 import fileUpload from 'express-fileupload'
 
-import sequelize from './db'
-import router from './routes'
-import {errorHandingMiddleware} from './middleware'
+import sequelize from './db.js'
+import router from './routes/index.js'
+import {errorHandingMiddleware} from './middleware/index.js'
 
-import path from 'node:path'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-const PORT = process.env.CLIENT_PORT || 5555
+const PORT = process.env.SERVER_PORT || 5000
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static(path.resolve(__dirname, 'static')))
+app.use(express.static(__dirname + '/static'))
 app.use(fileUpload({}))
 app.use('/api', router)
 

@@ -1,7 +1,7 @@
-import {ApiError} from '../errors'
+import {ApiError} from '../errors/index.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import {User} from '../models/models'
+import {User} from '../models/models.js'
 
 const generateJwt = (id, email, role) => {
     return jwt.sign(
@@ -47,4 +47,6 @@ class UserController {
     }
 }
 
-module.exports = new UserController()
+const userController = new UserController()
+
+export default userController
