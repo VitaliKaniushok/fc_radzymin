@@ -31,11 +31,12 @@ services:
     restart: always
     environment:
       POSTGRES_DB: fc_radzymin_db
+      PGUSER: fc_radzymin
       POSTGRES_USER: fc_radzymin
       POSTGRES_PASSWORD: secret
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-d", "fc_radzymin_db"]
-      timeout: 20s
+      test: ["CMD-SHELL", "pg_isready -d fc_radzymin_db -U fc_radzymin"]
+      timeout: 7s
       retries: 10
     volumes:
       - postgres_data:/var/lib/postgresql/data
